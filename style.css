@@ -1,0 +1,441 @@
+:root {
+    --primary: #FFD600;
+    --secondary: #25D366;
+    --dark: #1a1a1a;
+    --light: #ffffff;
+    --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    --transition: all 0.3s ease;
+}
+
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #f5f5f5 0%, #e8f4f8 100%);
+    color: #333;
+    overflow-x: hidden;
+}
+
+header {
+    background: linear-gradient(135deg, var(--primary) 0%, #ffea00 100%);
+    padding: 25px 20px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(255, 214, 0, 0.3);
+}
+
+.header-content {
+    position: relative;
+    z-index: 2;
+}
+
+@keyframes taxiDrive {
+    0% {
+        transform: translateX(-100px) rotate(0deg);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0) rotate(0deg);
+        opacity: 1;
+    }
+}
+
+@keyframes taxiFloat {
+    0%, 100% {
+        transform: translateY(0) rotate(-5deg);
+    }
+    50% {
+        transform: translateY(-10px) rotate(5deg);
+    }
+}
+
+.taxi-icon {
+    font-size: 50px;
+    animation: taxiDrive 1.2s ease-out forwards, taxiFloat 3s ease-in-out infinite 1.2s;
+    display: inline-block;
+    margin-bottom: 10px;
+    filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2.5rem;
+    color: var(--dark);
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+    animation: fadeInUp 0.8s ease-out 0.3s both;
+}
+
+header p {
+    margin: 10px 0 0;
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: #444;
+    animation: fadeInUp 0.8s ease-out 0.5s both;
+}
+
+.header-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    opacity: 0.1;
+}
+
+.road-line {
+    position: absolute;
+    bottom: 30%;
+    width: 100%;
+    height: 4px;
+    background: repeating-linear-gradient(
+        to right,
+        transparent,
+        transparent 20px,
+        var(--dark) 20px,
+        var(--dark) 40px
+    );
+    animation: roadMove 20s linear infinite;
+}
+
+@keyframes roadMove {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-40px); }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7);
+    }
+    70% {
+        box-shadow: 0 0 0 15px rgba(37, 211, 102, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
+    }
+}
+
+@keyframes cardAppear {
+    from {
+        opacity: 0;
+        transform: translateY(30px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes counterIncrement {
+    from {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    to {
+        transform: scale(1);
+    }
+}
+
+.container {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.card {
+    background: var(--light);
+    padding: 25px;
+    margin-bottom: 25px;
+    border-radius: 15px;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+    opacity: 0;
+    transform: translateY(20px);
+    animation: cardAppear 0.6s ease-out forwards;
+    border-left: 5px solid var(--primary);
+    position: relative;
+    overflow: hidden;
+}
+
+.card:nth-child(1) { animation-delay: 0.2s; }
+.card:nth-child(2) { animation-delay: 0.4s; }
+.card:nth-child(3) { animation-delay: 0.6s; }
+.card:nth-child(4) { animation-delay: 0.8s; }
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 214, 0, 0.1), transparent);
+    transition: left 0.7s;
+}
+
+.card:hover::before {
+    left: 100%;
+}
+
+.card h2 {
+    margin-top: 0;
+    color: var(--dark);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.5rem;
+}
+
+.card h2 i {
+    color: var(--primary);
+}
+
+.price-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px dashed #eee;
+    transition: var(--transition);
+}
+
+.price-item:hover {
+    background: rgba(255, 214, 0, 0.05);
+    padding-left: 10px;
+    border-radius: 5px;
+}
+
+.price-item:last-child {
+    border-bottom: none;
+}
+
+.price {
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: #2e7d32;
+    background: rgba(46, 125, 50, 0.1);
+    padding: 5px 12px;
+    border-radius: 20px;
+    transition: var(--transition);
+}
+
+.price-item:hover .price {
+    background: rgba(46, 125, 50, 0.2);
+    transform: scale(1.05);
+}
+
+.button {
+    display: block;
+    width: 100%;
+    text-align: center;
+    background: linear-gradient(135deg, var(--secondary) 0%, #1da851 100%);
+    color: white;
+    padding: 18px;
+    text-decoration: none;
+    border-radius: 12px;
+    font-size: 1.3rem;
+    font-weight: bold;
+    margin-top: 15px;
+    transition: var(--transition);
+    animation: pulse 2s infinite;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 6px 20px rgba(37, 211, 102, 0.3);
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+.button:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 10px 25px rgba(37, 211, 102, 0.4);
+    animation: none;
+}
+
+.button:active {
+    transform: translateY(1px);
+}
+
+.button i {
+    margin-right: 10px;
+    font-size: 1.4rem;
+}
+
+.ripple {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.7);
+    transform: scale(0);
+    animation: ripple 0.6s linear;
+}
+
+@keyframes ripple {
+    to {
+        transform: scale(4);
+        opacity: 0;
+    }
+}
+
+.stats-card {
+    display: flex;
+    justify-content: space-around;
+    text-align: center;
+    padding: 20px;
+    background: linear-gradient(135deg, #2c3e50 0%, #4a6491 100%);
+    color: white;
+    border-radius: 15px;
+    margin-bottom: 25px;
+    box-shadow: var(--shadow);
+    animation: cardAppear 0.6s ease-out 1s both;
+}
+
+.stat-item {
+    padding: 10px;
+}
+
+.stat-number {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: var(--primary);
+    display: block;
+    transition: var(--transition);
+}
+
+.stat-label {
+    font-size: 1rem;
+    opacity: 0.9;
+}
+
+.order-info {
+    margin-top: 15px;
+    text-align: center;
+    opacity: 0.8;
+    font-size: 0.9rem;
+}
+
+.advantage-icon {
+    margin-right: 8px;
+}
+
+footer {
+    text-align: center;
+    padding: 25px 15px;
+    background: var(--dark);
+    color: white;
+    margin-top: 40px;
+    position: relative;
+    overflow: hidden;
+}
+
+footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, var(--primary), var(--secondary), var(--primary));
+    animation: gradientMove 3s linear infinite;
+}
+
+@keyframes gradientMove {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.contact-info {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-bottom: 15px;
+    flex-wrap: wrap;
+}
+
+.contact-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: var(--transition);
+    padding: 8px 15px;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.contact-item:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-3px);
+}
+
+.contact-item i {
+    color: var(--primary);
+}
+
+.footer-note {
+    opacity: 0.7;
+    font-size: 0.9rem;
+    margin-top: 10px;
+}
+
+.scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 0%;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
+    z-index: 1000;
+    transition: width 0.1s;
+}
+
+@media (max-width: 768px) {
+    header h1 {
+        font-size: 2rem;
+    }
+    
+    .taxi-icon {
+        font-size: 40px;
+    }
+    
+    .card {
+        padding: 20px;
+    }
+    
+    .price-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+    }
+    
+    .price {
+        align-self: flex-end;
+    }
+    
+    .stats-card {
+        flex-direction: column;
+        gap: 20px;
+    }
+    
+    .contact-info {
+        flex-direction: column;
+        gap: 15px;
+    }
+}
